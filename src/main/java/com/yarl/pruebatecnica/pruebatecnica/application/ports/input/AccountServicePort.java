@@ -1,9 +1,10 @@
 package com.yarl.pruebatecnica.pruebatecnica.application.ports.input;
 
 import com.yarl.pruebatecnica.pruebatecnica.domain.model.Account;
+import com.yarl.pruebatecnica.pruebatecnica.domain.model.Client;
 
 public interface AccountServicePort {
-    Account crearCuenta(Long idCliente, Account account);
+    Boolean crearCuenta(Long idCliente, Account account);
 
     Account getAccountById(Long idAccount);
 
@@ -12,4 +13,6 @@ public interface AccountServicePort {
     Account updateAccount(Long idAccount, Account account);
 
     void eliminarAccount(Long idAccount);
+
+    Client RelatedClientToAccount(Long idAccount);
 }

@@ -1,9 +1,11 @@
 package com.yarl.pruebatecnica.pruebatecnica.infraestructure.adapters.output.persistence.entity;
 
+import com.yarl.pruebatecnica.pruebatecnica.domain.model.Account;
 import jakarta.persistence.*;
 import lombok.*;
 
 import java.time.LocalDate;
+import java.util.List;
 
 @NoArgsConstructor
 @AllArgsConstructor
@@ -32,4 +34,7 @@ public class ClientEntity {
     private LocalDate fechaNacimiento;
     private LocalDate fechaCreacion;
     private LocalDate fechaModificacion;
+
+    @OneToMany(mappedBy = "clientEntity", cascade = CascadeType.ALL, orphanRemoval = true)
+    private List<AccountEntity> accountEntities;
 }

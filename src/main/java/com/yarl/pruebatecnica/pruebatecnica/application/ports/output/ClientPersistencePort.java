@@ -26,5 +26,4 @@ public interface ClientPersistencePort {
 
     void deleteById(Long idCliente);
 
-    List<Account> cuentasRelacionadas(Long clientId);
 }

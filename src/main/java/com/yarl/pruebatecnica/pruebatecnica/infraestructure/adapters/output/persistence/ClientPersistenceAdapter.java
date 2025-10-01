@@ -50,11 +50,6 @@ public class ClientPersistenceAdapter implements ClientPersistencePort {
         jpaClienteRepository.deleteById(idCliente);
     }
 
-    @Override
-    public List<Account> cuentasRelacionadas(Long clientId) {
-        return List.of();
-    }
-
 
 
     /* El adaptador de salida, es el que va a implementar el puerto de salida. */

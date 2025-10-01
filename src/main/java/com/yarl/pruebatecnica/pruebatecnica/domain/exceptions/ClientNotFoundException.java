@@ -1,4 +1,4 @@
-package com.yarl.pruebatecnica.pruebatecnica.domain.Exceptions;
+package com.yarl.pruebatecnica.pruebatecnica.domain.exceptions;
 
 public class ClientNotFoundException extends RuntimeException {
 

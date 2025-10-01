@@ -4,7 +4,6 @@ import com.yarl.pruebatecnica.pruebatecnica.domain.model.Account;
 import com.yarl.pruebatecnica.pruebatecnica.domain.model.Client;
 
 import java.util.List;
-import java.util.Optional;
 
 public interface ClientServicePort {
 
@@ -21,6 +20,6 @@ public interface ClientServicePort {
 
     void deleteClient(Long idClient);
 
-    /* Se la pasa el id, porque si no, ¿De quien son las cuentas? */
-    List<Account> listaDeCuentasRelacionadas(Long clientId);
+    /* Aqui no se podría poner el llamar una lista de clientes, por el tema de responsabilidad únic, porque a la final al hacer una inyeccion de dependencias,
+    estariamos dandole una responsabilidad de clientes, a alguien que solamente debería tener responsabilidad de clientes */
 }

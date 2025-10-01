@@ -1,19 +1,16 @@
 package com.yarl.pruebatecnica.pruebatecnica.infraestructure.adapters.input.restController;
 
-import com.yarl.pruebatecnica.pruebatecnica.domain.Exceptions.ClientNotFoundException;
+import com.yarl.pruebatecnica.pruebatecnica.domain.exceptions.ClientNotFoundException;
 import com.yarl.pruebatecnica.pruebatecnica.domain.model.ErrorResponse;
-import com.yarl.pruebatecnica.pruebatecnica.utils.ErrorCatalog;
 import org.springframework.context.support.DefaultMessageSourceResolvable;
 import org.springframework.http.HttpStatus;
 import org.springframework.validation.BindingResult;
 import org.springframework.web.bind.MethodArgumentNotValidException;
 import org.springframework.web.bind.annotation.ExceptionHandler;
 import org.springframework.web.bind.annotation.ResponseStatus;
-import org.springframework.web.bind.annotation.RestController;
 import org.springframework.web.bind.annotation.RestControllerAdvice;
 
 import java.time.LocalDateTime;
-import java.util.Arrays;
 import java.util.Collections;
 import java.util.stream.Collectors;
 

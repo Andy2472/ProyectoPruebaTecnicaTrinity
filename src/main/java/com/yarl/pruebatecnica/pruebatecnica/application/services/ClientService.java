@@ -1,17 +1,15 @@
 package com.yarl.pruebatecnica.pruebatecnica.application.services;
 
+import com.yarl.pruebatecnica.pruebatecnica.application.ports.input.AccountServicePort;
 import com.yarl.pruebatecnica.pruebatecnica.application.ports.input.ClientServicePort;
 import com.yarl.pruebatecnica.pruebatecnica.application.ports.output.ClientPersistencePort;
-import com.yarl.pruebatecnica.pruebatecnica.domain.Exceptions.ClientNotFoundException;
+import com.yarl.pruebatecnica.pruebatecnica.domain.exceptions.ClientNotFoundException;
 import com.yarl.pruebatecnica.pruebatecnica.domain.model.Account;
 import com.yarl.pruebatecnica.pruebatecnica.domain.model.Client;
 
-import lombok.NoArgsConstructor;
-import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Service;
 
 import java.util.List;
-import java.util.Optional;
 
 
 @Service
@@ -23,7 +21,7 @@ public class ClientService implements ClientServicePort {
 
     private final ClientPersistencePort clientPersistencePort;
 
-    public ClientService(ClientPersistencePort clientPersistencePort){
+    public ClientService(ClientPersistencePort clientPersistencePort, AccountServicePort accountServicePort){
         this.clientPersistencePort = clientPersistencePort;
     }
 
@@ -70,16 +68,6 @@ public class ClientService implements ClientServicePort {
         }
 
         clientPersistencePort.deleteById(idClient);
-    }
-
-    @Override
-    public List<Account> listaDeCuentasRelacionadas(Long clientId) {
-        return List.of();
-    }
-
-    @Override
-    public List<Account> listaDeCuentasRelacionadas() {
-        return List.of();
     }
 
 

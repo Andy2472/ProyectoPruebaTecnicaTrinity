@@ -8,8 +8,8 @@ import java.util.Optional;
 public interface AccountPersistencePort {
     Optional<Account> getAccountById(Long idAccount);
     Optional<Account> getAccountByClientId(Long IdClient);
-    Account save(Long idClient, Account account);
+    Boolean save(Long idClient, Account account);
     void deleteById(Long idAccount);
 
-    Client clienteRelacionadoToAccount(Long idAccount);
+    Client RelatedClientToAccount(Long idAccount);
 }

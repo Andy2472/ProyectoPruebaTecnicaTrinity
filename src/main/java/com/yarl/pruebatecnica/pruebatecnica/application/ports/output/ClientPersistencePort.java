@@ -1,5 +1,6 @@
 package com.yarl.pruebatecnica.pruebatecnica.application.ports.output;
 
+import com.yarl.pruebatecnica.pruebatecnica.domain.model.Account;
 import com.yarl.pruebatecnica.pruebatecnica.domain.model.Client;
 
 import java.util.List;
@@ -24,4 +25,6 @@ public interface ClientPersistencePort {
     Client save(Client cliente);
 
     void deleteById(Long idCliente);
+
+    List<Account> cuentasRelacionadas(Long clientId);
 }

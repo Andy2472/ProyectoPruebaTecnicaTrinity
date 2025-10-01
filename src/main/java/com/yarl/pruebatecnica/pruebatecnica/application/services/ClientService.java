@@ -3,6 +3,7 @@ package com.yarl.pruebatecnica.pruebatecnica.application.services;
 import com.yarl.pruebatecnica.pruebatecnica.application.ports.input.ClientServicePort;
 import com.yarl.pruebatecnica.pruebatecnica.application.ports.output.ClientPersistencePort;
 import com.yarl.pruebatecnica.pruebatecnica.domain.Exceptions.ClientNotFoundException;
+import com.yarl.pruebatecnica.pruebatecnica.domain.model.Account;
 import com.yarl.pruebatecnica.pruebatecnica.domain.model.Client;
 
 import lombok.NoArgsConstructor;
@@ -69,6 +70,16 @@ public class ClientService implements ClientServicePort {
         }
 
         clientPersistencePort.deleteById(idClient);
+    }
+
+    @Override
+    public List<Account> listaDeCuentasRelacionadas(Long clientId) {
+        return List.of();
+    }
+
+    @Override
+    public List<Account> listaDeCuentasRelacionadas() {
+        return List.of();
     }
 
 

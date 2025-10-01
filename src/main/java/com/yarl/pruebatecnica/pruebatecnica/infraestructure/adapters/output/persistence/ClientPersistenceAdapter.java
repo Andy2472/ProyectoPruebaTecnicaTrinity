@@ -1,6 +1,7 @@
 package com.yarl.pruebatecnica.pruebatecnica.infraestructure.adapters.output.persistence;
 
 import com.yarl.pruebatecnica.pruebatecnica.application.ports.output.ClientPersistencePort;
+import com.yarl.pruebatecnica.pruebatecnica.domain.model.Account;
 import com.yarl.pruebatecnica.pruebatecnica.domain.model.Client;
 import com.yarl.pruebatecnica.pruebatecnica.infraestructure.adapters.output.persistence.mapper.ClientPersistenceMapper;
 import com.yarl.pruebatecnica.pruebatecnica.infraestructure.adapters.output.persistence.repository.JpaClienteRepository;
@@ -48,6 +49,13 @@ public class ClientPersistenceAdapter implements ClientPersistencePort {
     public void deleteById(Long idCliente) {
         jpaClienteRepository.deleteById(idCliente);
     }
+
+    @Override
+    public List<Account> cuentasRelacionadas(Long clientId) {
+        return List.of();
+    }
+
+
 
     /* El adaptador de salida, es el que va a implementar el puerto de salida. */
 

@@ -1,5 +1,6 @@
 package com.yarl.pruebatecnica.pruebatecnica.application.ports.input;
 
+import com.yarl.pruebatecnica.pruebatecnica.domain.model.Account;
 import com.yarl.pruebatecnica.pruebatecnica.domain.model.Client;
 
 import java.util.List;
@@ -19,4 +20,7 @@ public interface ClientServicePort {
     Client updateClients(Long idCliente, Client Clientes);
 
     void deleteClient(Long idClient);
+
+    /* Se la pasa el id, porque si no, ¿De quien son las cuentas? */
+    List<Account> listaDeCuentasRelacionadas(Long clientId);
 }

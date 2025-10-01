@@ -2,6 +2,7 @@ package com.yarl.pruebatecnica.pruebatecnica.domain.model;
 
 
 import java.time.LocalDate;
+import java.util.List;
 
 public class Client {
     private Long id;
@@ -14,9 +15,9 @@ public class Client {
     private LocalDate fechaCreacion;
     private LocalDate fechaModificacion;
 
-    private Account productos;
+    private List<Account> productos;
 
-    public Client(Long id, String tipoIdentificacion, String numeroIdentificacio, String nombres, String apellidos, String correo, LocalDate fechaNacimiento, LocalDate fechaCreacion, LocalDate fechaModificacion, Account productos) {
+    public Client(Long id, String tipoIdentificacion, String numeroIdentificacio, String nombres, String apellidos, String correo, LocalDate fechaNacimiento, LocalDate fechaCreacion, LocalDate fechaModificacion, List<Account> productos) {
         this.id = id;
         this.tipoIdentificacion = tipoIdentificacion;
         this.numeroIdentificacion = numeroIdentificacio;
@@ -101,11 +102,11 @@ public class Client {
         this.fechaModificacion = fechaModificacion;
     }
 
-    public Account getProductos() {
+    public List<Account> getProductos() {
         return productos;
     }
 
-    public void setProductos(Account productos) {
+    public void setProductos(List<Account> productos) {
         this.productos = productos;
     }
 }

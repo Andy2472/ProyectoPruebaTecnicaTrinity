@@ -52,11 +52,11 @@ public class ClientService implements ClientServicePort {
                 .map(clienteExistente -> {
                     // Aquí uso lógica de dominio
                     clienteExistente.actualizarDatos(
-                            nuevosDatos.getTipoIdentificacion(),
-                            nuevosDatos.getNumeroIdentificacion(),
                             nuevosDatos.getNombres(),
                             nuevosDatos.getApellidos(),
-                            nuevosDatos.getCorreo()
+                            nuevosDatos.getCorreo(),
+                            nuevosDatos.getTipoIdentificacion(),
+                            nuevosDatos.getNumeroIdentificacion()
                     );
                     return clientPersistencePort.save(clienteExistente);
                 })

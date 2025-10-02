@@ -16,7 +16,6 @@ import java.util.Optional;
 public class ClientPersistenceAdapter implements ClientPersistencePort {
 
     private final JpaClienteRepository jpaClienteRepository;
-
     private final ClientPersistenceMapper clientPersistenceMapper;
 
     @Override

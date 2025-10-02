@@ -15,6 +15,7 @@ import org.springframework.stereotype.Service;
 import java.math.BigDecimal;
 import java.time.LocalDate;
 import java.time.LocalDateTime;
+import java.util.List;
 
 @Service
 public class AccountService implements AccountServicePort {
@@ -22,18 +23,18 @@ public class AccountService implements AccountServicePort {
     private final ClientPersistencePort clientPersistencePort;
     private final AccountPersistencePort accountPersistencePort;
 
-    public AccountService(ClientServicePort clientServicePort, ClientPersistencePort clientPersistencePort, AccountPersistencePort accountPersistencePort) {
+    public AccountService(ClientPersistencePort clientPersistencePort, AccountPersistencePort accountPersistencePort) {
         this.clientPersistencePort = clientPersistencePort;
         this.accountPersistencePort = accountPersistencePort;
     }
 
     @Override
-    public Boolean crearCuenta(Long idCliente, Account account) {
-        // 1. Validar que el cliente exista
+    public Account crearCuenta(Long idCliente, Account account) {
+        // 1. Validar cliente
         Client client = clientPersistencePort.getClientById(idCliente)
                 .orElseThrow(ClientNotFoundException::new);
 
-        // 2. Validar tipo de cuenta permitido
+        // 2. Validar tipo de cuenta
         if (account.getTipoProducto() == null) {
             throw new IllegalArgumentException("Debe especificar el tipo de cuenta (AHORROS o CORRIENTE)");
         }
@@ -42,12 +43,11 @@ public class AccountService implements AccountServicePort {
         String numeroCuenta = generarNumeroCuenta(account.getTipoProducto());
         account.setNumeroCuenta(numeroCuenta);
 
-        // 4. Estado inicial y reglas de negocio
+        // 4. Estado y validaciones
         if (account.getTipoProducto() == TipoProducto.AHORROS) {
-            account.setEstadoCuenta(EstadoCuenta.ACTIVO); // por defecto activa
-
+            account.setEstadoCuenta(EstadoCuenta.ACTIVO);
             if (account.getSaldo() != null && account.getSaldo().compareTo(BigDecimal.ZERO) < 0) {
-                throw new IllegalArgumentException("La cuenta de ahorros no puede tener saldo menor a 0");
+                throw new IllegalArgumentException("La cuenta de ahorros no puede tener saldo negativo");
             }
         }
 
@@ -56,9 +56,10 @@ public class AccountService implements AccountServicePort {
         account.setFechaCreacion(LocalDate.now());
         account.setFechaModificacion(LocalDate.now());
 
-        // 6. Guardar cuenta
+        // 6. Guardar cuenta y devolver la instancia creada
         return accountPersistencePort.save(client.getId(), account);
     }
+
 
     private String generarNumeroCuenta(TipoProducto tipo) {
         String prefijo = tipo == TipoProducto.AHORROS ? "53" : "33";
@@ -72,8 +73,8 @@ public class AccountService implements AccountServicePort {
     }
 
     @Override
-    public Account getAccountByClientId(Long idCliente) {
-        return accountPersistencePort.getAccountByClientId(idCliente).orElse(null);
+    public List<Account> getAccountsByClientId(Long idCliente) {
+        return accountPersistencePort.getAccountsByClientId(idCliente);
     }
 
     @Override
@@ -91,7 +92,9 @@ public class AccountService implements AccountServicePort {
 
     @Override
     public void eliminarAccount(Long idAccount) {
-        Account existingAccount = accountPersistencePort.getAccountById(idAccount).orElseThrow(AccountNotFoundException::new);
+        accountPersistencePort.getAccountById(idAccount)
+                .orElseThrow(AccountNotFoundException::new);
+        accountPersistencePort.deleteById(idAccount); // ahora sí elimina
     }
 
     @Override

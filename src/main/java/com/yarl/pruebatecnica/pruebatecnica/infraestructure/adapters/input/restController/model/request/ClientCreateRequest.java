@@ -1,9 +1,6 @@
 package com.yarl.pruebatecnica.pruebatecnica.infraestructure.adapters.input.restController.model.request;
 
-import jakarta.validation.constraints.NotBlank;
-import jakarta.validation.constraints.NotEmpty;
-import jakarta.validation.constraints.NotNull;
-import jakarta.validation.constraints.PastOrPresent;
+import jakarta.validation.constraints.*;
 import lombok.*;
 
 import java.time.LocalDate;
@@ -34,23 +31,20 @@ public class ClientCreateRequest {
     @NotEmpty(message = "El campo numeroIdentificacion no debe estar vacío")
     private String numeroIdentificacion;
 
-    @NotEmpty(message = "El campo nombres no debe estar vacío")
+    @Size(min = 2, message = "El nombre debe tener al menos 2 caracteres")
     private String nombres;
 
-    @NotEmpty(message = "El campo apellidos no debe estar vacío")
+    @Size(min = 2, message = "El apellido debe tener al menos 2 caracteres")
     private String apellidos;
 
-    @NotEmpty(message = "El campo correo no debe estar vacío")
+    @Email(message = "El campo correo debe ser válido")
     private String correo;
 
     @NotNull(message = "El campo fechaNacimiento no debe estar vacío")
     private LocalDate fechaNacimiento;
 
-    @NotNull(message = "El campo fechaCreacion no debe estar vacío")
     private LocalDate fechaCreacion;
 
-    @NotNull(message = "El campo fechaModificacion no debe estar vacío")
-    @PastOrPresent(message = "La fecha no puede ser futura")
     private LocalDate fechaModificacion;
 
 }

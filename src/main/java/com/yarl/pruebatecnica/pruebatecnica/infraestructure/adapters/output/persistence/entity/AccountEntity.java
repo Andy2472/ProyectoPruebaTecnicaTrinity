@@ -16,14 +16,16 @@ import java.time.LocalDate;
 @NoArgsConstructor
 @Getter
 @Setter
+@Table(name = "account")
 public class AccountEntity {
 
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id;
-
+    @Enumerated(EnumType.STRING)
     private TipoProducto tipoCuenta;
     private String numeroCuenta;
+    @Enumerated(EnumType.STRING)
     private EstadoCuenta estadoCuenta;
     private BigDecimal saldo;
     private Boolean exentaGMF;

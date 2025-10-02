@@ -1,6 +1,5 @@
 package com.yarl.pruebatecnica.pruebatecnica.application.services;
 
-import com.yarl.pruebatecnica.pruebatecnica.application.ports.input.AccountServicePort;
 import com.yarl.pruebatecnica.pruebatecnica.application.ports.input.ClientServicePort;
 import com.yarl.pruebatecnica.pruebatecnica.application.ports.output.ClientPersistencePort;
 import com.yarl.pruebatecnica.pruebatecnica.domain.exceptions.ClientNotFoundException;
@@ -9,6 +8,7 @@ import com.yarl.pruebatecnica.pruebatecnica.domain.model.Client;
 
 import org.springframework.stereotype.Service;
 
+import java.time.LocalDate;
 import java.util.List;
 
 
@@ -21,13 +21,15 @@ public class ClientService implements ClientServicePort {
 
     private final ClientPersistencePort clientPersistencePort;
 
-    public ClientService(ClientPersistencePort clientPersistencePort, AccountServicePort accountServicePort){
+    public ClientService(ClientPersistencePort clientPersistencePort){
         this.clientPersistencePort = clientPersistencePort;
     }
 
     @Override
-    public Client createClient(Client clientes) {
-        return clientPersistencePort.save(clientes);
+    public Client createClient(Client cliente) {
+        cliente.setFechaCreacion(LocalDate.now());
+        cliente.setFechaModificacion(LocalDate.now());
+        return clientPersistencePort.save(cliente);
     }
 
     @Override
@@ -41,12 +43,27 @@ public class ClientService implements ClientServicePort {
     }
 
     @Override
-    public Client updateClients(Long idCliente, Client Clientes) {
+    public Client updateClients(Long idCliente, Client nuevosDatos) {
 
         /* Buscamos el cliente por id, si existe, modificamos los campos que
         queremos modificar, sino existe, se ejecuta la excepcion */
 
         return clientPersistencePort.getClientById(idCliente)
+                .map(clienteExistente -> {
+                    // Aquí uso lógica de dominio
+                    clienteExistente.actualizarDatos(
+                            nuevosDatos.getTipoIdentificacion(),
+                            nuevosDatos.getNumeroIdentificacion(),
+                            nuevosDatos.getNombres(),
+                            nuevosDatos.getApellidos(),
+                            nuevosDatos.getCorreo()
+                    );
+                    return clientPersistencePort.save(clienteExistente);
+                })
+                .orElseThrow(ClientNotFoundException::new);
+
+
+        /*return clientPersistencePort.getClientById(idCliente)
                 .map(savedStudent -> {
                     savedStudent.setTipoIdentificacion(Clientes.getTipoIdentificacion());
                     savedStudent.setNumeroIdentificacion(Clientes.getNumeroIdentificacion());
@@ -58,7 +75,7 @@ public class ClientService implements ClientServicePort {
                     savedStudent.setFechaModificacion(Clientes.getFechaModificacion());
                     return clientPersistencePort.save(savedStudent);
                 })
-                .orElseThrow(ClientNotFoundException::new);
+                .orElseThrow(ClientNotFoundException::new);*/
     }
 
     @Override

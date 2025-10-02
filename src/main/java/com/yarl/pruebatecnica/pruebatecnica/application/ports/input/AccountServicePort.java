@@ -3,12 +3,15 @@ package com.yarl.pruebatecnica.pruebatecnica.application.ports.input;
 import com.yarl.pruebatecnica.pruebatecnica.domain.model.Account;
 import com.yarl.pruebatecnica.pruebatecnica.domain.model.Client;
 
+import java.util.List;
+
 public interface AccountServicePort {
-    Boolean crearCuenta(Long idCliente, Account account);
+    Account crearCuenta(Long idCliente, Account account);
 
     Account getAccountById(Long idAccount);
 
-    Account getAccountByClientId(Long idCliente);
+    List<Account> getAccountsByClientId(Long idClient);
+
 
     Account updateAccount(Long idAccount, Account account);
 

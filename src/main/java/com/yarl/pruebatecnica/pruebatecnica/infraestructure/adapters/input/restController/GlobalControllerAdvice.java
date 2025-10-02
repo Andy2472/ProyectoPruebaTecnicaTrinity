@@ -14,7 +14,7 @@ import java.time.LocalDateTime;
 import java.util.Collections;
 import java.util.stream.Collectors;
 
-import static com.yarl.pruebatecnica.pruebatecnica.utils.ErrorCatalog.*;
+import static com.yarl.pruebatecnica.pruebatecnica.utils.ClientErrorCatalog.*;
 
 @RestControllerAdvice
 public class GlobalControllerAdvice {

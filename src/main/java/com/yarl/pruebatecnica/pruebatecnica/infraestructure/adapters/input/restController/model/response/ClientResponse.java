@@ -1,5 +1,6 @@
 package com.yarl.pruebatecnica.pruebatecnica.infraestructure.adapters.input.restController.model.response;
 
+import com.yarl.pruebatecnica.pruebatecnica.domain.model.Account;
 import lombok.*;
 
 import java.time.LocalDate;

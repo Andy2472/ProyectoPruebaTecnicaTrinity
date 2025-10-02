@@ -2,6 +2,7 @@ package com.yarl.pruebatecnica.pruebatecnica.domain.model;
 
 
 import java.time.LocalDate;
+import java.time.Period;
 import java.util.List;
 
 public class Client {
@@ -18,6 +19,11 @@ public class Client {
     private List<Account> productos;
 
     public Client(Long id, String tipoIdentificacion, String numeroIdentificacio, String nombres, String apellidos, String correo, LocalDate fechaNacimiento, LocalDate fechaCreacion, LocalDate fechaModificacion, List<Account> productos) {
+
+        if (Period.between(fechaNacimiento, LocalDate.now()).getYears() < 18) {
+            throw new IllegalArgumentException("El cliente debe ser mayor de edad");
+        }
+
         this.id = id;
         this.tipoIdentificacion = tipoIdentificacion;
         this.numeroIdentificacion = numeroIdentificacio;
@@ -28,6 +34,7 @@ public class Client {
         this.fechaCreacion = fechaCreacion;
         this.fechaModificacion = fechaModificacion;
         this.productos = productos;
+
     }
 
     public Long getId() {
@@ -108,5 +115,17 @@ public class Client {
 
     public void setProductos(List<Account> productos) {
         this.productos = productos;
+    }
+
+    public void actualizarDatos(String nombres, String apellidos, String correo, String tipoIdentificacion, String numeroIdentificacion) {
+        if (nombres.length() < 2 || apellidos.length() < 2) {
+            throw new IllegalArgumentException("Nombre y apellido deben tener al menos 2 caracteres");
+        }
+        this.nombres = nombres;
+        this.apellidos = apellidos;
+        this.correo = correo;
+        this.tipoIdentificacion = tipoIdentificacion;
+        this.numeroIdentificacion = numeroIdentificacion;
+        this.fechaModificacion = LocalDate.now();
     }
 }
